@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+dist/
+build/
+.npm
+.eslintcache
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS
+Thumbs.db
+ehthumbs.db
+
+# Project Specific
+backend/dist/
+frontend/dist/
+backend/node_modules/
+frontend/node_modules/

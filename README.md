@@ -78,3 +78,25 @@ The system handles backpressure by separating the **Ingestion API** from the **P
 
 ## 🛡️ RCA Validation
 The system enforces a mandatory Root Cause Analysis (RCA) before an incident can be transitioned to the `CLOSED` state. MTTR (Mean Time To Repair) is automatically calculated upon RCA submission.
+
+## 🧪 Resilience & Testing
+- **Unit Testing**: Core business logic (State Pattern, MTTR calculation, RCA validation) is covered by Jest unit tests.
+- **Database Resilience**: All database writes (Postgres & MongoDB) use an **Exponential Backoff Retry** mechanism to handle transient failures.
+- **Observability**: Real-time throughput metrics are printed to the console every 5 seconds.
+
+## 🌟 Bonus Features (Non-Functional)
+- **Security Layer**: 
+    - Implemented **Fastify Helmet** for secure HTTP headers.
+    - **CORS** enabled for frontend-backend isolation.
+    - **Rate Limiting** applied to the ingestion API to prevent DDoS and cascading failures.
+- **High Performance**:
+    - Uses **Fastify**, the fastest Node.js framework.
+    - **Redis Streams** for sub-millisecond ingestion buffering.
+    - **Hot-Path Caching** (Redis) to avoid heavy DB queries during dashboard refreshes.
+- **Schema Validation**: All signals and Work Items are strictly typed and validated.
+
+## 📝 Development Documentation
+A detailed [DEVELOPMENT_LOG.md](./DEVELOPMENT_LOG.md) is included, covering architectural decisions, design patterns, and the build process as per the assignment requirements.
+
+---
+*Developed as a Mission-Critical Engineering Challenge.*
