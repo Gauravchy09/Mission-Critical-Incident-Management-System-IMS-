@@ -5,7 +5,7 @@ import { WorkItem, RCA } from "../models/entities";
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: process.env.DB_HOST || "localhost",
-    port: parseInt(process.env.DB_PORT || "5432"),
+    port: parseInt(process.env.DB_PORT || "5433"),
     username: process.env.DB_USER || "user",
     password: process.env.DB_PASSWORD || "password",
     database: process.env.DB_NAME || "ims",

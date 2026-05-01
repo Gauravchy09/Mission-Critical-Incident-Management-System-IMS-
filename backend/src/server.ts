@@ -21,11 +21,18 @@ setInterval(() => {
 const start = async () => {
     try {
         await initDBs();
-        await fastify.register(helmet); // Security Headers
-        await fastify.register(cors);
+        
+        await fastify.register(helmet, {
+            contentSecurityPolicy: false, // Disable for easier local dev
+        });
+
+        await fastify.register(cors, {
+            origin: true, // Allow all origins in dev
+            methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+        });
 
         await fastify.register(fastifyRateLimit, {
-            max: 5000, // Higher limit for internal APIs
+            max: 5000,
             timeWindow: '1 minute'
         });
 
@@ -68,6 +75,8 @@ const start = async () => {
         // Status Transition (State Pattern)
         fastify.patch('/incidents/:id/status', async (request, reply) => {
             const { id } = request.params as any;
+            console.log(`[DEBUG] Transition requested for incident: ${id}`);
+            
             const workItemRepo = AppDataSource.getRepository(WorkItem);
             const workItem = await workItemRepo.findOne({ where: { id }, relations: ['rca'] });
             
